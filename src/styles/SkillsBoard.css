@@ -1,0 +1,57 @@
+.board {
+  position: absolute;
+  left: 40%;
+  transform: translateX(-25vw);
+  display: grid;
+  grid-gap: 2%;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  padding: 1em 1em 1em 1em;
+  height: 70%;
+  width: 50%;
+  background-color: #464646;
+  border: solid 3px black;
+  border-radius: 15px;
+  box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.781);
+}
+.boxes {
+  display: flex;
+  height: 95%;
+  width: 100%;
+  border: solid 3px black;
+  border-radius: 10px;
+  box-shadow: -2px 1px 5px black;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  font-family: 'JetBrains Mono', monospace;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.boxes > a {
+  color: black;
+}
+.outstanding {
+  transition: 600ms;
+  background-color: #acacac;
+}
+.outstanding:hover {
+  transition: 400ms;
+  background-color: aliceblue;
+  box-shadow: 0px 0px 20px rgba(136, 174, 209, 0.589);
+  cursor: pointer;
+}
+.acquired {
+  transition: 600ms;
+  background-color: #479b47;
+}
+.acquired:hover {
+  transition: 400ms;
+  background-color: chartreuse;
+  box-shadow: 0px 0px 20px rgba(172, 255, 47, 0.514);
+  cursor: pointer;
+}
+/*# sourceMappingURL=SkillsBoard.css.map */

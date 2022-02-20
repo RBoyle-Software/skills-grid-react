@@ -1,0 +1,22 @@
+.counter {
+    background-color: gray;
+}
+
+button {
+    color: chartreuse;
+    background-color: pink;
+    margin: 50px;
+    height: 3rem;
+    width: 8rem;
+    font-weight: bold;
+    border: solid 3px chartreuse;
+    border-radius: 5px;
+}
+
+button:hover {
+    transition: 300ms;
+    font-weight: bold;
+    background-color: chartreuse;
+    color: blueviolet;
+    border-color: blueviolet;
+}

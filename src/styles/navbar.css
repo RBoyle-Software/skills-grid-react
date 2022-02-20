@@ -1,0 +1,40 @@
+#top-menu {
+  display: grid;
+  grid-template-columns: auto 100px;
+  width: 100vw;
+  margin-bottom: 5%;
+  color: #dcdcdc;
+  background-color: #1e7fce;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.863);
+  font-size: 1.25em;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#top-menu > ul {
+  list-style: none;
+  display: flex;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+#top-menu > ul > li {
+  padding: 20px 40px 20px;
+  border-right: solid 2px #dcdcdc;
+}
+#top-menu > ul li:nth-child(3),
+#top-menu > ul li:nth-last-child(1) {
+  border: none;
+}
+#top-menu > ul li:nth-child(4) {
+  margin-left: auto;
+}
+#top-menu > ul li:hover {
+  transition: 400ms;
+  text-shadow: 1px 1px 0px black;
+  background-color: rgba(199, 23, 199, 0.342);
+  cursor: pointer;
+}
+#top-menu > ul li:not(:hover) {
+  transition: 400ms;
+  background-color: #1e7fce;
+}
+/*# sourceMappingURL=navbar.css.map */

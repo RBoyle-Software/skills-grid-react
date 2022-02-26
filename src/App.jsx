@@ -1,12 +1,12 @@
 import React from 'react';
-import SkillsBoard from './SkillsBoard.tsx'
+import Board from './SkillsBoard'
 import './styles/App.css';
 
 function App() {
   return (
     <div className="App">
       {/* <TopNav /> */}
-      <SkillsBoard />
+      <Board />
       {/* <UserInput /> */}
     </div>
   );

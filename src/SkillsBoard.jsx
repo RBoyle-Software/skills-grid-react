@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react';
-// import tempSkills from './tempSkills'
+import React, { useEffect } from 'react';
+import tempSkills from './tempSkills'
 import './styles/SkillsBoard.css'
 
 
 function SkillsBoard() {
 
-  const [skills, setSkills] = useState(null);
+  // const [skills, setSkills] = useState(null);
 
   try {
     useEffect(() => {
-      fetch('localhost:3001/skills-grid')
+      fetch('localhost:3000/skills-grid')
       .then(response => response.json())
-      .then(data => setSkills(data))
       .then(data => console.log(data))
     }, [])
 
@@ -23,7 +22,7 @@ function SkillsBoard() {
   return (
     <div className="board">
 
-      {skills.map((skill, index) => {
+      {tempSkills.map((skill, index) => {
         const element = <div
           key={index}
           className={`boxes ${skill.status}`}

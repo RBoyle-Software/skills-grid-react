@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import tempSkills from './tempSkills'
 import './styles/SkillsBoard.css'
 
 
 function SkillsBoard() {
 
-  // const [skills, setSkills] = useState(null);
+  const [skills, setSkills] = useState(null);
 
   try {
     useEffect(() => {

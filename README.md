@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# Interview Skills Grid
+Use this app to track and prioritize the topics you need to study during your job search.
+<br><br>
+Try it for yourself! --> <a href="https://interview-skills-grid.herokuapp.com/" target="_blank">Interview Skills Grid</a>
+<br><br>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <img src="https://github.com/Glorified-Software/interview-skills-grid/blob/5a2b3a329c3c2764c0313c73227f0384a7c94530/images/2022-01-31_230910.png" width="600px">
+  <br><br>
+  <img src="https://github.com/Glorified-Software/interview-skills-grid/blob/5a2b3a329c3c2764c0313c73227f0384a7c94530/images/2022-01-31_231007.png" width="600px">
+  <br><br>
+  <img src="https://github.com/RBoyle-Software/interview-skills-grid/blob/d1040f0c320170295a87caad298b2a8d7e4a7e72/images/original-skills-grid.png" width="600px">
+</p>
+<br><br>
 
-## Available Scripts
+### To Do:
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [ ] rebuild in React
+- [ ] migrate to TypeScript
+- [ ] implement O-Auth for Google, GitHub, Facebook
+- [x] connect to MongoDB
+- [x] boxes display color based on status property
+- [ ] allow user to enter/edit innerText
+- [x] implement error handling in server
+- [ ] nav links redirect to static pages (temporary)
+- [x] improve routing and file/folder structure
+- [x] style radio buttons similar to https://codepen.io/dsenneff/pen/ZoLVZW
+- [ ] integrate with CS Study Buddy
+- [ ] unify styling between components
+- [ ] style modals and their content
+- [ ] make it responsive (no squishing or covering)
+- [ ] make it mobile-friendly
+- [ ] CSS 3D card flip effect
+- [ ] implement undo history
+- [ ] more transitions and animations
+- [ ] user account page
+- [ ] update via modal window rather than right-side interface
+- [ ] greet the user by first name

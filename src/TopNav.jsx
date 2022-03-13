@@ -2,7 +2,8 @@ import React from 'react';
 import './styles/navbar.css';
 
 
-function TopNav() {
+export default function TopNav() {
+
   return (
     <nav id="top-menu">
       <ul>
@@ -14,7 +15,5 @@ function TopNav() {
       </ul>
     </nav>
   )
+
 }
-
-
-export default TopNav;

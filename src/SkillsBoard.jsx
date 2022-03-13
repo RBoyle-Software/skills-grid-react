@@ -1,40 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import './styles/SkillsBoard.css'
+import './styles/SkillsBoard.css';
+import axios from 'axios';
 
 
-function SkillsBoard() {
+export default function SkillsBoard() {
 
+  const skillsEndpoint = '/user-skills';
   const [skills, setSkills] = useState([]);
+  const [selectedBox, setSelectedBox] = useState({});
+  console.log('SELECTED', selectedBox);
 
   useEffect(() => {
-    fetch('/user-skills')
-    .then(response => response.json())
-    .then(data => setSkills(data))
+    axios.get(skillsEndpoint)
+    .then(skills => setSkills(skills.data))
   }, []);
 
-  const handleStatusToggle = (e) => {
-    e.target.classList.toggle('outstanding');
-    e.target.classList.toggle('acquired');
+  const handleBoxSelect = (e) => {
+    const currentStatus = e.target.classList.value.includes('acquired') ? 'acquired' : 'outstanding';
+    const selected = {
+      status: currentStatus,
+      index: e.target.id,
+      value: e.target.innerText
+    };
+    setSelectedBox(selected);
   }
 
   const skillsList = skills.map((skill, index) => {
     return (
       <div
+        id={index}
         key={`Box #${index}`}
         className={`boxes ${skill.status}`}
-        onClick={(e) => handleStatusToggle(e)}
+        onClick={(e) => handleBoxSelect(e)}
       >
         {skill.value}
       </div>
-    )
+    );
   })
-
 
   return (
     <div className="board">
       {skillsList}
     </div>
-  )
-}
+  );
 
-export default SkillsBoard;
+}

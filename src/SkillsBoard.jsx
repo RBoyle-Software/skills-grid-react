@@ -1,5 +1,9 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import './styles/SkillsBoard.css'
+
+
+const skillsEndpoint = '/user-skills';
 
 
 function SkillsBoard() {
@@ -7,9 +11,8 @@ function SkillsBoard() {
   const [skills, setSkills] = useState([]);
 
   useEffect(() => {
-    fetch('/user-skills')
-    .then(response => response.json())
-    .then(data => setSkills(data))
+    axios.get(skillsEndpoint)
+    .then(skills => setSkills(skills.data))
   }, []);
 
   const handleStatusToggle = (e) => {

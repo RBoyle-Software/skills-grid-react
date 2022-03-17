@@ -8,7 +8,7 @@ userController.getUserSkills = (req, res, next) => {
     // console.log('Hit getUserSkills');
 
     // const currentUserId = req.user.userId;
-    const currentUserId = '109354695303129431907';
+    const currentUserId = 'TEST_ID';
 
     User.findOne({ userId: currentUserId }, (err, foundUser) => {
         if (err) {
@@ -23,7 +23,8 @@ userController.getUserSkills = (req, res, next) => {
 userController.updateUserSkills = (req, res, next) => {
 
     const index = req.body.index;
-    const updateId = res.req.user.userId;
+    // const updateId = res.req.user.userId;
+    const updateId = 'TEST_ID';
     const updateObject = {
         status: req.body.status,
         value: req.body.value

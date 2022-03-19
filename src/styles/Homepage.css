@@ -11,12 +11,8 @@ a {
   text-decoration: none;
   color: #dcdcdc;
 }
-#temp {
+#login {
   height: 100vh;
   width: 100vw;
-  background-image: linear-gradient(185deg, #b6a765, #4e4a0c);
 }
-#top-menu {
-  height: 67px;
-}
-/*# sourceMappingURL=temp.css.map */
+/*# sourceMappingURL=Homepage.css.map */

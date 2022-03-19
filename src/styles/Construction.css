@@ -11,9 +11,12 @@ a {
   text-decoration: none;
   color: #dcdcdc;
 }
-#login {
+#temp {
   height: 100vh;
   width: 100vw;
-  background-image: linear-gradient(185deg, #72456b, #42243e);
+  background-image: linear-gradient(185deg, #b6a765, #4e4a0c);
 }
-/*# sourceMappingURL=index.css.map */
+#top-menu {
+  height: 67px;
+}
+/*# sourceMappingURL=Construction.css.map */

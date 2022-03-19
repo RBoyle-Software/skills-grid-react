@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route } from "react-router-dom";
-import UserInterface from './UserInterface';
-import SkillsBoard from './SkillsBoard';
+import { Routes, Route, useLocation } from "react-router-dom";
 import LoginBoard from './LoginBoard';
+import SkillsBoard from './SkillsBoard';
 import Construction from './Construction';
+import UserInterface from './UserInterface';
 import TopNav, { gradients } from './TopNav';
+import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 import './styles/App.css';
 
@@ -12,12 +13,13 @@ import './styles/App.css';
 export default function App() {
 
 
-  const [appBackground, setAppBackground] = useState(gradients.loginScreen);
+  const [appBackground, setAppBackground] = useState('');
   const [selectedBox, setSelectedBox] = useState({});
   const [skills, setSkills] = useState([]);
   const [status, setStatus] = useState('');
   const [value, setValue] = useState('');
-  // const location = useLocation();
+  const { isLoading } = useAuth0();
+  const location = useLocation();
 
 
   const getSkills = () => {
@@ -29,6 +31,10 @@ export default function App() {
   useEffect(() => {
     getSkills();
   }, []);
+
+  useEffect(() => {
+    setAppBackground(gradients[location.pathname]);
+  }, [location])
 
 
   const handleBoxSelect = (e) => {
@@ -58,6 +64,12 @@ export default function App() {
     getSkills();
   }
 
+  if (isLoading) return <div
+      style={{height: "100%", backgroundImage: `${appBackground}`}}
+      className="loading"
+    >
+    Loading...
+    </div>
 
   return (
     <div
@@ -65,16 +77,14 @@ export default function App() {
       style={{backgroundImage: `${appBackground}`}}
     >
 
-      <TopNav
-        backgroundSetter={setAppBackground}
-      />
+      <TopNav />
 
       <Routes>
         <Route exact path="/" element={<LoginBoard />} />
 
         <Route
           exact path="main"
-          element={<>
+          element={<div>
             <SkillsBoard
               skillsList={skills}
               clickFunction={handleBoxSelect}
@@ -87,12 +97,17 @@ export default function App() {
               setValue={setValue}
               submitFunction={handleSubmit}
             />
-          </>}
+          </div>}
         />
 
         <Route
           exact path="under-construction"
           element={<Construction />}
+        />
+
+        <Route
+          path="*"
+          element={<h1>There's nothing to see here.</h1>}
         />
 
       </Routes>

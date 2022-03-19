@@ -15,4 +15,14 @@ a {
   height: 100vh;
   width: 100vw;
 }
+.user-image {
+  display: block;
+  align-self: center;
+  height: 55px;
+  width: 55px;
+  object-fit: cover;
+  background-color: #0b2344;
+  border: solid 2px #dcdcdc;
+  border-radius: 10%;
+}
 /*# sourceMappingURL=App.css.map */

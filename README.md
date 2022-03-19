@@ -15,12 +15,12 @@ Try it for yourself! --> <a href="https://interview-skills-grid.herokuapp.com/" 
 
 ### To Do:
 
-- [ ] rebuild in React
+- [x] rebuild in React
 - [ ] migrate to TypeScript
 - [ ] implement O-Auth for Google, GitHub, Facebook
 - [x] connect to MongoDB
 - [x] boxes display color based on status property
-- [ ] allow user to enter/edit innerText
+- [x] allow user to enter/edit innerText
 - [x] implement error handling in server
 - [ ] nav links redirect to static pages (temporary)
 - [x] improve routing and file/folder structure

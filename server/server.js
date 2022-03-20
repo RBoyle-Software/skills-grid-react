@@ -1,16 +1,15 @@
 const express = require('express');
-const currentUser = require('../controllers/passportController');
+// const currentUser = require('../controllers/passportController');
 const userController = require('../controllers/userController');
 const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const favicon = require('serve-favicon')
-const passport = require('passport');
+// const passport = require('passport');
 const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
 require('dotenv').config();
-
 
 const app = express();
 
@@ -52,43 +51,46 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 
 const isLoggedIn = (req, res, next) => {
-    // if (req.user) {
-    //     next();
-    // } else {
-    //     console.log('User is not logged in!')
-    //     res.sendStatus(401);
-    // }
-    console.log('Hit isLoggedIn');
+    // console.log('USER', req.data);
+    if (req.user) {
+        next();
+    } else {
+        console.log('User is not logged in!')
+        // res.sendStatus(401);
+    }
+    console.log('hit isLoggedIn function');
     next();
 }
 
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../src/index.html'));
-});
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../src/index.html'));
+// });
 
-app.get('/temp', (req, res) => {
-    res.sendFile(path.join(__dirname, '../src/temp.html'));
-});
+// app.get('/temp', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../src/temp.html'));
+// });
 
-app.get('/auth-failed', (req, res) => {
-    res.send('Authorization Failed!');
-    res.redirect('/test');
-});
-
-
-app.get('/skills-grid', isLoggedIn, (req, res, next) => {
-    res.sendFile(path.join(__dirname, '../src/main.html'));
-});
+// app.get('/auth-failed', (req, res) => {
+//     res.send('Authorization Failed!');
+//     res.redirect('/test');
+// });
 
 
-app.get('/user-skills', userController.getUserSkills, (req, res) => {
-    res.status(200).json(res.locals.skills);
+// app.get('/skills-grid', isLoggedIn, (req, res, next) => {
+//     res.sendFile(path.join(__dirname, '../src/main.html'));
+// });
+
+
+app.get('/user-skills', isLoggedIn, userController.getUserSkills, (req, res) => {
+  // console.log('RESPONSE', res.locals);
+  // console.log('REQUEST', req);
+  res.status(200).json(res.locals.skills);
 });
 
 app.put('/user-skills', userController.updateUserSkills, (req, res) => {

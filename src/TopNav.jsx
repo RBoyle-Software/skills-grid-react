@@ -32,7 +32,7 @@ export default function TopNav(props) {
 
       </ul>
 
-      { user && <img src={user.picture} class="user-image" alt="user profile" /> }
+      { user && <img src={user.picture} className="user-image" alt="user profile" /> }
 
     </nav>
   )

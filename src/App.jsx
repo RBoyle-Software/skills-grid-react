@@ -20,13 +20,8 @@ export default function App() {
   const [value, setValue] = useState('');
   const { isLoading } = useAuth0();
   const location = useLocation();
+  // const { user } = useAuth0();
 
-
-  const getSkills = () => {
-    axios.get('/user-skills')
-    .then(res => setSkills(res.data))
-    .catch(err => console.log(err.stack))
-  }
 
   useEffect(() => {
     getSkills();
@@ -35,6 +30,29 @@ export default function App() {
   useEffect(() => {
     setAppBackground(gradients[location.pathname]);
   }, [location])
+
+
+  const getSkills = () => {
+    axios.get('/user-skills')
+    .then(res => setSkills(res.data))
+    .catch(err => console.log(err.stack))
+  }
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.put('/user-skills', {
+      index: selectedBox.index,
+      status: status,
+      value: value
+    })
+    .then(res => console.log(res.statusText))
+    .catch(err => console.log(err.stack))
+
+    const newSkills = [...skills];
+    newSkills[selectedBox.index] = { status: status, value: value };
+    setSkills(newSkills);
+  }
 
 
   const handleBoxSelect = (e) => {
@@ -49,20 +67,6 @@ export default function App() {
     setSelectedBox(selected);
   }
 
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    axios.put('/user-skills', {
-      index: selectedBox.index,
-      status: status,
-      value: value
-    })
-    .then(res => console.log(res.statusText))
-    .catch(err => console.log(err.stack))
-
-    getSkills();
-  }
 
   if (isLoading) return <div
       style={{height: "100%", backgroundImage: `${appBackground}`}}

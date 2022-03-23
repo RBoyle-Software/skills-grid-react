@@ -22,7 +22,7 @@ export default function LoginBoard() {
     {class: "outstanding" },
     {class: "outstanding" },
     {class: "outstanding" },
-    {class: "outstanding" }
+    {class: "acquired" }
   ];
 
   function colorToggle(e) {

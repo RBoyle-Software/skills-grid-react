@@ -4,12 +4,6 @@ import LogoutButton from './components/LogoutButton';
 import { useAuth0 } from '@auth0/auth0-react';
 import './styles/TopNav.css';
 
-export const gradients = {
-  '/': 'linear-gradient(185deg, #72456b, #42243e)',
-  '/main': 'linear-gradient(185deg, #2f527c, #0b2344)',
-  '/under-construction': 'linear-gradient(185deg, #b6a765, #4e4a0c)'
-};
-
 
 export default function TopNav(props) {
 

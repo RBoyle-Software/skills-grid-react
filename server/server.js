@@ -56,14 +56,13 @@ app.use(session({
 
 
 const isLoggedIn = (req, res, next) => {
-    // console.log('USER', req.data);
+    // console.log('USER', req.body);
     if (req.user) {
         next();
     } else {
-        console.log('User is not logged in!')
+        // console.log('User is not logged in!')
         // res.sendStatus(401);
     }
-    console.log('hit isLoggedIn function');
     next();
 }
 
@@ -90,6 +89,7 @@ const isLoggedIn = (req, res, next) => {
 app.get('/user-skills', isLoggedIn, userController.getUserSkills, (req, res) => {
   // console.log('RESPONSE', res.locals);
   // console.log('REQUEST', req);
+  // console.log('BODY', req.body);
   res.status(200).json(res.locals.skills);
 });
 

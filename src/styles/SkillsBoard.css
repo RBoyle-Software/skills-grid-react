@@ -1,4 +1,5 @@
 .board {
+  overflow: hidden;
   position: absolute;
   left: 40%;
   transform: translateX(-25vw);
@@ -13,6 +14,16 @@
   border: solid 3px black;
   border-radius: 15px;
   box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.781);
+  animation: fadeInOpacity ease-in-out 500ms;
+  animation-iteration-count: 1;
+}
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 @media only screen and (max-width: 1000px) {
   .board {

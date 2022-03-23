@@ -3,8 +3,7 @@
   display: block;
   position: absolute;
   right: 10%;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 25%;
   height: auto;
   width: 300px;
   padding: 20px;
@@ -12,11 +11,20 @@
   border: solid 1.2px black;
   border-radius: 15px;
   box-shadow: -2px 3px 15px rgba(0, 0, 0, 0.801);
+  animation: slideInInterface ease-in-out 800ms;
 }
 #form-area label {
   color: #464646;
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
+}
+@keyframes slideInInterface {
+  0% {
+    transform: translateX(600px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
 }
 #box-value {
   height: 150px;

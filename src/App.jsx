@@ -11,18 +11,16 @@ import './styles/App.css';
 
 export default function App() {
 
+  const { user, isLoading } = useAuth0();
+  const location = useLocation();
+
   const [state, setState] = useState({
     skills: [],
     value: '',
     status: 'outstanding',
     selectedBox: {},
-    appClass: '/main'
+    appClass: '/'
   });
-
-
-  const { isLoading } = useAuth0();
-  const location = useLocation();
-  console.log('CLASS', state.appClass, location);
 
 
   useEffect(() => {
@@ -37,7 +35,7 @@ export default function App() {
       '/under-construction': 'AppConstruction'
     }
     setState({ ...state, appClass: appClasses[location.pathname]})
-  }, [location]);
+  }, [location, state.appClass]);
 
 
   const getSkills = () => {
@@ -50,16 +48,6 @@ export default function App() {
     .then(res => res.json())
     .then(data => setState({ ...state, skills: data }))
     .catch(err => console.log(err.stack))
-  }
-
-
-  const handleStatus = (status) => {
-    setState({ ...state, status: status })
-  }
-
-
-  const handleValue = (value) => {
-    setState({ ...state, value: value})
   }
 
 
@@ -102,21 +90,43 @@ export default function App() {
   }
 
 
+  const handleUnselect = (e) => {
+    if (e.target.classList.value.includes('App')) {
+      setState({ ...state, status: 'outstanding', selectedBox: {} })
+    }
+  }
+
+  const handleStatus = (status) => {
+    setState({ ...state, status: status })
+  }
+
+  const handleValue = (value) => {
+    setState({ ...state, value: value})
+  }
+
+
   if (isLoading) return (
-    <div
-      className={`App ${state.appClass}`}
-    >
-      <div
-        className="board"
-      >
-      Loading...
+
+    <div className={`App ${state.appClass}`} >
+
+      <TopNav />
+
+      <div className='board' >
+
+        <div className='loading' >
+          Loading ...
+        </div>
+
       </div>
+
     </div>
   );
+
 
   return (
     <div
       className={`App ${state.appClass}`}
+      onClick={(e) => handleUnselect(e, this)}
     >
 
       <TopNav />
@@ -125,29 +135,39 @@ export default function App() {
         <Route exact path="/" element={<LoginBoard />} />
 
         <Route
-          exact path="main"
-          element={<div>
-            <SkillsBoard
-              skillsList={state.skills}
-              clickFunction={handleBoxSelect}
-            />
+          exact path='main'
+          element={
+            <div>
 
-            <UserInterface
-              state={state}
-              setValue={handleValue}
-              setStatus={handleStatus}
-              submitFunction={handleSubmit}
-            />
-          </div>}
+              {user && <SkillsBoard
+                skillsList={state.skills}
+                clickFunction={handleBoxSelect}
+              />}
+
+              {user && <UserInterface
+                state={state}
+                setValue={handleValue}
+                setStatus={handleStatus}
+                submitFunction={handleSubmit}
+              />}
+
+              {!user && <div className="board">
+                <div className='unauthorized' >
+                  <p>You are not authorized!</p>
+                </div>
+              </div>}
+
+            </div>
+          }
         />
 
         <Route
-          exact path="under-construction"
+          exact path='under-construction'
           element={<Construction />}
         />
 
         <Route
-          path="*"
+          path='*'
           element={<h1>There's nothing to see here!</h1>}
         />
 

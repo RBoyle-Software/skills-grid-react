@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from "react-router-dom";
 import App from './App';
+import ErrorBoundary from './components/ErrorBoundary.js';
 import { Auth0Provider } from '@auth0/auth0-react';
 // import reportWebVitals from './reportWebVitals';
 
@@ -16,7 +17,9 @@ ReactDOM.render(
   >
     <React.StrictMode>
       <BrowserRouter>
-        <App />
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
       </BrowserRouter>
     </React.StrictMode>
   </Auth0Provider>,

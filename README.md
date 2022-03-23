@@ -17,6 +17,10 @@ Try it for yourself! --> <a href="https://interview-skills-grid.herokuapp.com/" 
 
 - [x] rebuild in React
 - [ ] migrate to TypeScript
+- [ ] un-select box info when clicking on blue background
+- [ ] pre-select radio button based on selected box status
+- [ ] default radio button to 'Outstanding'
+- [ ] popup / modal when clicking 'Update' with no box selected
 - [ ] implement O-Auth for Google, GitHub, Facebook
 - [x] connect to MongoDB
 - [x] boxes display color based on status property

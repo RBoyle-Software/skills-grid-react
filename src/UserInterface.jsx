@@ -4,14 +4,17 @@ import './styles/Interface.css';
 
 export default function UserInterface(props) {
 
+  const boxIndex = props.state.selectedBox.index;
+  const boxValue = props.state.selectedBox.value;
+
   return (
     <form id="form-area">
 
       <div id="box-value" >
-        {(props.selected.index && 'Box #')}
-        {props.selected.index}
+        {boxIndex && 'Box #'}
+        {boxIndex && parseInt(boxIndex) + 1 }
         {'\n'}
-        {props.selected.value}
+        {boxValue}
       </div>
 
       <div id="user-input">
@@ -23,7 +26,7 @@ export default function UserInterface(props) {
             id="text-input"
             maxLength="40"
             placeholder="Enter text"
-            value={props.value}
+            value={props.state.value}
             onChange={(e) => props.setValue(e.target.value)}
           />
         </label>
@@ -33,7 +36,7 @@ export default function UserInterface(props) {
           <input 
             type="radio"
             id="outstanding"
-            checked={props.status === 'outstanding'}
+            checked={props.state.status === 'outstanding'}
             onChange={() => props.setStatus('outstanding')}
           />
           <label className="status-label" htmlFor="outstanding">Outstanding</label>
@@ -41,7 +44,7 @@ export default function UserInterface(props) {
           <input
             type="radio"
             id="acquired"
-            checked={props.status === 'acquired'}
+            checked={props.state.status === 'acquired'}
             onChange={() => props.setStatus('acquired')}
           />
           <label className="status-label" htmlFor="acquired">Acquired</label>

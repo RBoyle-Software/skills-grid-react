@@ -73,7 +73,8 @@
   cursor: pointer;
 }
 .loading,
-.unauthorized {
+.unauthorized,
+.account {
   font-family: 'Poppins', sans-serif;
   font-size: 3em;
   color: #dcdcdc;

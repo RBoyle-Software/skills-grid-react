@@ -22,7 +22,7 @@ export default function TopNav(props) {
           
         <li><LogoutButton /></li>
 
-        <li><a href="/temp">My Account</a></li>
+        <li><Link to='/my-account'>My Account</Link></li>
 
       </ul>
 

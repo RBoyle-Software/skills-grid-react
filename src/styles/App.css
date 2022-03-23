@@ -29,14 +29,4 @@ body {
 .AppConstruction {
   background-image: linear-gradient(185deg, #b6a765, #4e4a0c);
 }
-.user-image {
-  display: block;
-  align-self: center;
-  height: 55px;
-  width: 55px;
-  object-fit: cover;
-  background-color: #0b2344;
-  border: solid 2px #dcdcdc;
-  border-radius: 10%;
-}
 /*# sourceMappingURL=App.css.map */

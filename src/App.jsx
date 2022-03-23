@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import TopNav from './TopNav';
+import MyAccount from './MyAccount';
 import LoginBoard from './LoginBoard';
 import SkillsBoard from './SkillsBoard';
 import Construction from './Construction';
@@ -32,6 +33,7 @@ export default function App() {
     const appClasses = {
       '/': 'AppLogin',
       '/main': 'AppMain',
+      '/my-account': 'AppLogin',
       '/under-construction': 'AppConstruction'
     }
     setState({ ...state, appClass: appClasses[location.pathname]})
@@ -126,7 +128,7 @@ export default function App() {
   return (
     <div
       className={`App ${state.appClass}`}
-      onClick={(e) => handleUnselect(e, this)}
+      onClick={(e) => handleUnselect(e)}
     >
 
       <TopNav />
@@ -164,6 +166,11 @@ export default function App() {
         <Route
           exact path='under-construction'
           element={<Construction />}
+        />
+
+        <Route
+          exact path='my-account'
+          element={<MyAccount />}
         />
 
         <Route

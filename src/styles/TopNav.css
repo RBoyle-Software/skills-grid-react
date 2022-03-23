@@ -36,4 +36,14 @@
   transition: 400ms;
   background-color: #1e7fce;
 }
+.user-image {
+  display: block;
+  align-self: center;
+  height: 55px;
+  width: 55px;
+  object-fit: cover;
+  background-color: #0b2344;
+  border: solid 2px #dcdcdc;
+  border-radius: 10%;
+}
 /*# sourceMappingURL=TopNav.css.map */

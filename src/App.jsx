@@ -126,7 +126,7 @@ export default function App() {
   return (
     <div
       className={`App ${state.appClass}`}
-      onClick={(e) => handleUnselect(e, this)}
+      onClick={(e) => handleUnselect(e)}
     >
 
       <TopNav />

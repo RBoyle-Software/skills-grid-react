@@ -1,6 +1,6 @@
 const express = require('express');
 // const currentUser = require('../controllers/passportController');
-const userController = require('../controllers/userController');
+const userController = require('./controllers/userController');
 const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -13,22 +13,25 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(favicon(path.join(__dirname, '../images', 'favicon.png')));
+app.use(favicon(path.join(__dirname, '../client/src/images', 'favicon.png')));
 
+app.get('/', (req, res) => {
+  console.log('Connected!')
+})
 
 const PORT = process.env.PORT || 3100;
 
 main().catch((err) => console.log(err));
 
 async function main() {
-    await mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-    });
+  await mongoose.connect(process.env.DB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+  });
 }
 
 mongoose.connection.once('open', () => {
-    console.log('Connected to Database');
+  console.log('Connected to Database');
 });
 
 
@@ -41,29 +44,29 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use(cookieSession({
-    name: 'skills-grid',
-    keys: ['key1', 'key2']
+  name: 'skills-grid',
+  keys: ['key1', 'key2']
 }));
 
 
 app.use(session({
-    secret: process.env.KEYBOARD_CAT,
-    resave: true,
-    saveUninitialized: true
+  secret: process.env.KEYBOARD_CAT,
+  resave: true,
+  saveUninitialized: true
 }));
 // app.use(passport.initialize());
 // app.use(passport.session());
 
 
 const isLoggedIn = (req, res, next) => {
-    // console.log('USER', req.body);
-    if (req.user) {
-        next();
-    } else {
-        // console.log('User is not logged in!')
-        // res.sendStatus(401);
-    }
+  // console.log('USER', req.body);
+  if (req.user) {
     next();
+  } else {
+    // console.log('User is not logged in!')
+    // res.sendStatus(401);
+  }
+  next();
 }
 
 
@@ -94,7 +97,7 @@ app.get('/user-skills', isLoggedIn, userController.getUserSkills, (req, res) => 
 });
 
 app.put('/user-skills', userController.updateUserSkills, (req, res) => {
-    res.sendStatus(200);
+  res.sendStatus(200);
 });
 
 
@@ -142,9 +145,9 @@ app.put('/user-skills', userController.updateUserSkills, (req, res) => {
 
 
 app.get('/logout', (req, res) => {
-    req.session = null;
-    req.logout();
-    res.redirect('/');
+  req.session = null;
+  req.logout();
+  res.redirect('/');
 });
 
 

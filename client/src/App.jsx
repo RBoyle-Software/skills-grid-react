@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import TopNav from './TopNav';
 import MyAccount from './MyAccount';
@@ -15,17 +15,31 @@ export default function App() {
   const { user, isLoading } = useAuth0();
   const location = useLocation();
 
+  console.log(location.pathname);
+
   const [state, setState] = useState({
-    skills: [],
-    value: '',
-    status: 'outstanding',
+    appClass: '/',
     selectedBox: {},
-    appClass: '/'
+    skills: [],
+    status: 'outstanding',
+    value: ''
   });
 
 
+  const getSkills = useCallback(() => {
+    fetch('/user-skills', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(data => setState({ ...state, skills: data }))
+    .catch(err => console.error(err.stack))
+  }, [state])
+
   useEffect(() => {
-    getSkills();
+    getSkills()
   }, []);
 
 
@@ -37,20 +51,7 @@ export default function App() {
       '/under-construction': 'AppConstruction'
     }
     setState({ ...state, appClass: appClasses[location.pathname]})
-  }, [location, state.appClass]);
-
-
-  const getSkills = () => {
-    fetch('/user-skills', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => res.json())
-    .then(data => setState({ ...state, skills: data }))
-    .catch(err => console.log(err.stack))
-  }
+  }, []);
 
 
   const handleSubmit = (e) => {
@@ -81,7 +82,8 @@ export default function App() {
 
 
   const handleBoxSelect = (e) => {
-    const currentStatus = e.target.classList.value.includes('acquired') ? 'acquired' : 'outstanding';
+    const classList = e.target.classList.value;
+    const currentStatus = classList.includes('acquired') ? 'acquired' : 'outstanding';
     const selected = {
       status: currentStatus,
       index: e.target.id,

@@ -17,6 +17,7 @@
   padding-right: 50px;
 }
 #top-menu > ul > li {
+  display: block;
   padding: 20px 40px 20px;
   border-right: solid 2px #dcdcdc;
 }

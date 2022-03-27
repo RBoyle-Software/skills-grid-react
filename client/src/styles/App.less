@@ -1,32 +1,45 @@
+@light-blue: rgb(30, 127, 206);
+@medium-blue: rgb(47, 82, 124);
+@dark-blue: rgb(11, 35, 68);
+@light-gray: rgb(220, 220, 220);
+@dark-gray: rgb(70, 70, 70);
+@faded-purple: rgb(114, 69, 107);
+
 * {
   margin: 0;
   padding: 0;
 }
-*,
-*:before,
-*:after {
+
+
+*, *:before, *:after {
   box-sizing: border-box;
   overflow: hidden;
-}
+  }
+
 a {
-  text-decoration: none;
-  color: #dcdcdc;
+    text-decoration: none;
+    color: @light-gray;
 }
+
 body {
   background-color: black;
+  user-select: none;
 }
+
 .App {
   height: 100vh;
   width: 100vw;
   background-color: black;
 }
+
 .AppLogin {
   background-image: linear-gradient(185deg, #72456b, #42243e);
 }
+
 .AppMain {
   background-image: linear-gradient(185deg, #2f527c, #0b2344);
 }
+
 .AppConstruction {
   background-image: linear-gradient(185deg, #b6a765, #4e4a0c);
 }
-/*# sourceMappingURL=App.css.map */

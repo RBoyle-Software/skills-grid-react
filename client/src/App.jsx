@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import TopNav from './TopNav';
 import MyAccount from './MyAccount';
@@ -6,16 +6,15 @@ import LoginBoard from './LoginBoard';
 import SkillsBoard from './SkillsBoard';
 import Construction from './Construction';
 import UserInterface from './UserInterface';
-import { useAuth0 } from '@auth0/auth0-react';
+// import { useAuth0 } from '@auth0/auth0-react';
 import './styles/App.css';
 
 
 export default function App() {
 
-  const { user, isLoading } = useAuth0();
+  // const { user, isLoading } = useAuth0();
   const location = useLocation();
 
-  console.log(location.pathname);
 
   const [state, setState] = useState({
     appClass: '/',
@@ -26,8 +25,8 @@ export default function App() {
   });
 
 
-  const getSkills = useCallback(() => {
-    fetch('/user-skills', {
+  const getSkills = () => {
+    fetch('https://skills-grid-react.herokuapp.com/user-skills', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -36,7 +35,8 @@ export default function App() {
     .then(res => res.json())
     .then(data => setState({ ...state, skills: data }))
     .catch(err => console.error(err.stack))
-  }, [state])
+    console.log('Skills retrieved from database!')
+  }
 
   useEffect(() => {
     getSkills()
@@ -45,13 +45,13 @@ export default function App() {
 
   useEffect(() => {
     const appClasses = {
-      '/': 'AppLogin',
+      '/login': 'AppLogin',
       '/main': 'AppMain',
       '/my-account': 'AppLogin',
       '/under-construction': 'AppConstruction'
     }
     setState({ ...state, appClass: appClasses[location.pathname]})
-  }, []);
+  }, [location.pathname]);
 
 
   const handleSubmit = (e) => {
@@ -63,14 +63,16 @@ export default function App() {
       value: state.value
     }
 
-    fetch('/user-skills', {
+    fetch('https://skills-grid-react.herokuapp.com/user-skills', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(newState)
     })
-    .then(res => console.log('Status: ', res.status))
+    .then(res => {
+      if (res.status === 200) console.log('Database updated successfully!')
+    })
     .catch(err => console.log(err.stack))
 
     const newSkills = Object.assign([ ...state.skills ], {
@@ -109,7 +111,7 @@ export default function App() {
   }
 
 
-  if (isLoading) return (
+  if (false) return (
 
     <div className={`App ${state.appClass}`} >
 
@@ -136,26 +138,26 @@ export default function App() {
       <TopNav />
 
       <Routes>
-        <Route exact path="/" element={<LoginBoard />} />
+        <Route exact path='login' element={<LoginBoard />} />
 
         <Route
           exact path='main'
           element={
             <div>
 
-              {user && <SkillsBoard
+              <SkillsBoard
                 skillsList={state.skills}
                 clickFunction={handleBoxSelect}
-              />}
+              />
 
-              {user && <UserInterface
+              <UserInterface
                 state={state}
                 setValue={handleValue}
                 setStatus={handleStatus}
                 submitFunction={handleSubmit}
-              />}
+              />
 
-              {!user && <div className="board">
+              {false && <div className="board">
                 <div className='unauthorized' >
                   <p>You are not authorized!</p>
                 </div>

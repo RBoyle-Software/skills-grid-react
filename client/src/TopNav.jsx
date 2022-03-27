@@ -13,7 +13,7 @@ export default function TopNav(props) {
     <nav id="top-menu">
       <ul>
         
-        <li><Link to="/">Home</Link></li>
+        <li><Link to="/login">Home</Link></li>
 
         <li><Link to="/main">Board</Link></li>
 

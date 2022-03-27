@@ -13,10 +13,10 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(favicon(path.join(__dirname, '../client/src/images', 'favicon.png')));
+app.use(favicon(path.join(__dirname, './images', 'favicon.png')));
 
-app.get('/', (req, res) => {
-  console.log('Connected!')
+app.get('/test', (req, res) => {
+  res.send({ users: ['user1', 'user2', 'user3', true, 12345]})
 })
 
 const PORT = process.env.PORT || 3100;
@@ -35,9 +35,9 @@ mongoose.connection.once('open', () => {
 });
 
 
-app.use(express.static(path.join(__dirname, '../src')));
-app.use(express.static(path.join(__dirname, '../images')));
-app.use(express.static(path.join(__dirname, '../styles')));
+// app.use(express.static(path.join(__dirname, '../src')));
+// app.use(express.static(path.join(__dirname, '../images')));
+// app.use(express.static(path.join(__dirname, '../styles')));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cookieParser());
@@ -78,10 +78,10 @@ const isLoggedIn = (req, res, next) => {
 //     res.sendFile(path.join(__dirname, '../src/temp.html'));
 // });
 
-// app.get('/auth-failed', (req, res) => {
-//     res.send('Authorization Failed!');
-//     res.redirect('/test');
-// });
+app.get('/auth-failed', (req, res) => {
+    res.send('Authorization Failed!');
+    res.redirect('/test');
+});
 
 
 // app.get('/skills-grid', isLoggedIn, (req, res, next) => {
@@ -90,9 +90,9 @@ const isLoggedIn = (req, res, next) => {
 
 
 app.get('/user-skills', isLoggedIn, userController.getUserSkills, (req, res) => {
-  // console.log('RESPONSE', res.locals);
-  // console.log('REQUEST', req);
-  // console.log('BODY', req.body);
+  console.log('RESPONSE', res.locals);
+  console.log('REQUEST', req);
+  console.log('BODY', req.body);
   res.status(200).json(res.locals.skills);
 });
 
@@ -144,15 +144,15 @@ app.put('/user-skills', userController.updateUserSkills, (req, res) => {
 // });
 
 
-app.get('/logout', (req, res) => {
-  req.session = null;
-  req.logout();
-  res.redirect('/');
-});
+// app.get('/logout', (req, res) => {
+//   req.session = null;
+//   req.logout();
+//   res.redirect('/');
+// });
 
 
 app.use('*', (req,res) => {
-  res.status(404).send('Not Found');
+  res.status(404).send('Not Found!');
 });
 
 app.use((err, req, res, next) => {

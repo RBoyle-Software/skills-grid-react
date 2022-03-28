@@ -13,7 +13,8 @@
   },
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "netlify": "./node_modules/.bin/netlify"
   },
   "name": "server",
   "version": "1.0.0",

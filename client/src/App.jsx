@@ -6,14 +6,17 @@ import LoginBoard from './LoginBoard';
 import SkillsBoard from './SkillsBoard';
 import Construction from './Construction';
 import UserInterface from './UserInterface';
-// import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth0 } from '@auth0/auth0-react';
 import './styles/App.css';
 
 
 export default function App() {
 
-  // const { user, isLoading } = useAuth0();
+
+  const { user, isLoading, isAuthenticated } = useAuth0();
   const location = useLocation();
+  console.log(location.pathname);
+  console.log(user);
 
 
   const [state, setState] = useState({
@@ -111,7 +114,7 @@ export default function App() {
   }
 
 
-  if (false) return (
+  if (user) return (
 
     <div className={`App ${state.appClass}`} >
 
@@ -157,7 +160,7 @@ export default function App() {
                 submitFunction={handleSubmit}
               />
 
-              {false && <div className="board">
+              {!user && <div className="board">
                 <div className='unauthorized' >
                   <p>You are not authorized!</p>
                 </div>

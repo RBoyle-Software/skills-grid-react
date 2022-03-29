@@ -1,26 +1,24 @@
 const express = require('express');
-// const currentUser = require('../controllers/passportController');
+const { auth, requiresAuth } = require('express-openid-connect');
 const userController = require('./controllers/userController');
 const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const favicon = require('serve-favicon')
-// const passport = require('passport');
 const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
 require('dotenv').config();
-
 const app = express();
-
-app.use(favicon(path.join(__dirname, './images', 'favicon.png')));
-
-app.get('/test', (req, res) => {
-  res.send({ users: ['user1', 'user2', 'user3', true, 12345]})
-})
 
 const PORT = process.env.PORT || 3100;
 
+
+// serve the favicon
+app.use(favicon(path.join(__dirname, './images', 'favicon.png')));
+
+
+// connect to database
 main().catch((err) => console.log(err));
 
 async function main() {
@@ -35,10 +33,7 @@ mongoose.connection.once('open', () => {
 });
 
 
-// app.use(express.static(path.join(__dirname, '../src')));
-// app.use(express.static(path.join(__dirname, '../images')));
-// app.use(express.static(path.join(__dirname, '../styles')));
-app.use(express.urlencoded({extended: true}));
+// app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
@@ -49,106 +44,44 @@ app.use(cookieSession({
 }));
 
 
-app.use(session({
-  secret: process.env.KEYBOARD_CAT,
-  resave: true,
-  saveUninitialized: true
-}));
-// app.use(passport.initialize());
-// app.use(passport.session());
+// Auth0 authentication routes
+app.use(
+  auth({
+    authRequired: false,
+    auth0Logout: true,
+    baseURL: process.env.BASE_URL,
+    clientID: process.env.CLIENT_ID,
+    idpLogout: true,
+    issuerBaseURL: process.env.ISSUER_BASE_URL,
+    secret: process.env.SECRET
+  })
+);
 
+app.get('/', (req, res) => {
+  console.log('AUTH?', req.oidc.isAuthenticated(), req.oidc.user?.sub);
+  res.send(req.oidc.isAuthenticated() ? 'You are logged in!' : 'You are logged out!');
+});
 
-const isLoggedIn = (req, res, next) => {
-  // console.log('USER', req.body);
-  if (req.user) {
-    next();
-  } else {
-    // console.log('User is not logged in!')
-    // res.sendStatus(401);
-  }
-  next();
-}
-
-
-// app.get('/', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../src/index.html'));
-// });
-
-// app.get('/temp', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../src/temp.html'));
-// });
-
-app.get('/auth-failed', (req, res) => {
-    res.send('Authorization Failed!');
-    res.redirect('/test');
+app.get('/profile', requiresAuth(), (req, res) => {
+  res.send(JSON.stringify(req.oidc.user))
 });
 
 
-// app.get('/skills-grid', isLoggedIn, (req, res, next) => {
-//     res.sendFile(path.join(__dirname, '../src/main.html'));
-// });
+// route to find user, or create if not found
+app.get('/user', requiresAuth(), userController.findOrCreateUser, (req, res) => {
+  res.send(res.locals.user);
+});
 
 
-app.get('/user-skills', isLoggedIn, userController.getUserSkills, (req, res) => {
-  console.log('RESPONSE', res.locals);
-  console.log('REQUEST', req);
-  console.log('BODY', req.body);
+// routes for getting and updating skills array
+app.get('/user-skills', requiresAuth(), userController.getUserSkills, (req, res) => {
+  // console.log('BODY', res.locals.skills);
   res.status(200).json(res.locals.skills);
 });
 
-app.put('/user-skills', userController.updateUserSkills, (req, res) => {
+app.put('/user-skills', requiresAuth(), userController.updateUserSkills, (req, res) => {
   res.sendStatus(200);
 });
-
-
-
-// authorize with Google
-// app.get('/auth/google',
-//     passport.authenticate('google', {
-//     scope: ['email', 'profile']
-// }));
-
-// app.get('/auth/google/callback',
-//     passport.authenticate('google', {
-//     failureRedirect: '/auth-failed'
-// }), (req, res) => {
-//     res.redirect('/skills-grid');
-// });
-
-
-// authorize with GitHub
-// app.get('/auth/github',
-//     passport.authenticate('github', {
-//     scope: [ 'user:email' ]
-// }));
-
-// app.get('/auth/github/callback', 
-// passport.authenticate('github', {
-//     failureRedirect: '/auth-failed'
-// }), (req, res) => {
-//     res.redirect('/skills-grid');
-// });
-
-
-// authorize with Facebook
-// app.get('/auth/facebook',
-//     passport.authenticate('facebook', {
-//     scope: [ 'email', 'public_profile' ]
-// }));
-
-// app.get('/auth/facebook/callback',
-//     passport.authenticate('facebook', {
-//     failureRedirect: '/auth-failed'
-// }), (req, res) => {
-//     res.redirect('/skills-grid');
-// });
-
-
-// app.get('/logout', (req, res) => {
-//   req.session = null;
-//   req.logout();
-//   res.redirect('/');
-// });
 
 
 app.use('*', (req,res) => {
@@ -162,3 +95,5 @@ app.use((err, req, res, next) => {
 
 
 app.listen(PORT, () => console.log(`Listening on Port ${PORT}`));
+
+module.exports = app;

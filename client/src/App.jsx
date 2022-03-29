@@ -6,14 +6,17 @@ import LoginBoard from './LoginBoard';
 import SkillsBoard from './SkillsBoard';
 import Construction from './Construction';
 import UserInterface from './UserInterface';
-// import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth0 } from '@auth0/auth0-react';
 import './styles/App.css';
 
 
 export default function App() {
 
-  // const { user, isLoading } = useAuth0();
+
+  const { user, isLoading, isAuthenticated } = useAuth0();
+  console.log(user, isLoading, isAuthenticated);
   const location = useLocation();
+  console.log(location.pathname);
 
 
   const [state, setState] = useState({
@@ -26,7 +29,7 @@ export default function App() {
 
 
   const getSkills = () => {
-    fetch('https://skills-grid-react.herokuapp.com/user-skills', {
+    fetch('http://localhost:3100/user-skills', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -63,7 +66,7 @@ export default function App() {
       value: state.value
     }
 
-    fetch('https://skills-grid-react.herokuapp.com/user-skills', {
+    fetch('http://localhost:3100/user-skills', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -111,7 +114,7 @@ export default function App() {
   }
 
 
-  if (false) return (
+  if (user) return (
 
     <div className={`App ${state.appClass}`} >
 
@@ -157,7 +160,7 @@ export default function App() {
                 submitFunction={handleSubmit}
               />
 
-              {false && <div className="board">
+              {user && <div className="board">
                 <div className='unauthorized' >
                   <p>You are not authorized!</p>
                 </div>

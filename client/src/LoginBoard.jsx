@@ -17,7 +17,7 @@ export default function LoginBoard() {
     {class: "outstanding" },
     {class: "outstanding" },
     {class: "outstanding" },
-    {class: "acquired", text: <LoginButton /> },
+    {class: "acquired", text: <a href="http://localhost:3100/login" alt="login">Authenticate</a> },
     {class: "outstanding" },
     {class: "outstanding" },
     {class: "outstanding" },

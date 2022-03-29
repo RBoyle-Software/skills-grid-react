@@ -14,9 +14,9 @@ export default function App() {
 
 
   const { user, isLoading, isAuthenticated } = useAuth0();
+  console.log(user, isLoading, isAuthenticated);
   const location = useLocation();
   console.log(location.pathname);
-  console.log(user);
 
 
   const [state, setState] = useState({
@@ -29,7 +29,7 @@ export default function App() {
 
 
   const getSkills = () => {
-    fetch('https://skills-grid-react.herokuapp.com/user-skills', {
+    fetch('http://localhost:3100/user-skills', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -66,7 +66,7 @@ export default function App() {
       value: state.value
     }
 
-    fetch('https://skills-grid-react.herokuapp.com/user-skills', {
+    fetch('http://localhost:3100/user-skills', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -160,7 +160,7 @@ export default function App() {
                 submitFunction={handleSubmit}
               />
 
-              {!user && <div className="board">
+              {user && <div className="board">
                 <div className='unauthorized' >
                   <p>You are not authorized!</p>
                 </div>
